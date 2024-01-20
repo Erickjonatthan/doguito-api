@@ -44,6 +44,9 @@ module.exports = class ClienteService {
             });
         } catch (err) {
             console.error(err);
+            if (err.errorNum === 40842) {
+                console.error('Erro ORA-40842: O valor EMBEDDED_OID não é suportado no metadado para o campo assignmentMethod. Verifique a configuração do seu banco de dados.');
+            }
         } finally {
             if (connection) {
                 try {
@@ -56,6 +59,7 @@ module.exports = class ClienteService {
         }
         return result;
     }
+
 
     async getById(clienteId) {
         let connection, cliente, result;
